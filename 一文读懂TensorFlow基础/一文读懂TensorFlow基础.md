@@ -1,4 +1,4 @@
-**TensorFlow入门**
+**一文读懂TensorFlow基础**
 
 1.  **前言**
 
@@ -146,6 +146,8 @@ MNIST是一个图片集，包含70000张手写数字图片：
 
 ![http://wiki.jikexueyuan.com/project/tensorflow-zh/images/MNIST.png](media/7631f1f3f2c39566f605174ba1c0a151.png)
 
+http://wiki.jikexueyuan.com/project/tensorflow-zh/images/MNIST.png
+
 它也包含每一张图片对应的标签，告诉我们这个是数字几。比如，上面这四张图片的标签分别是5，0，4，1。
 
 在下面的代码中，input_data.read_data_sets()函数下载数据并解压。
@@ -161,6 +163,8 @@ MNIST是一个图片集，包含70000张手写数字图片：
 每一张图片包含$$28 \times 28$$个像素点。我们可以用一个数字数组来表示一张图片：
 
 ![http://wiki.jikexueyuan.com/project/tensorflow-zh/images/MNIST-Matrix.png](media/da2d1bd56cbeecd634bb9ee3b3bb4c46.png)
+
+http://wiki.jikexueyuan.com/project/tensorflow-zh/images/MNIST-Matrix.png
 
 数组展开为长度是$$28 \times 28 =
 784$$的向量，则训练数据集mnist.train.images 是一个形状为 [60000,
@@ -181,10 +185,12 @@ MNIST数据集的标签是长度为10的one-hot向量（因为前面加载数据
 
 ![http://wiki.jikexueyuan.com/project/tensorflow-zh/images/softmax-regression-scalargraph.png](media/36cc2870cb9dbb125aef68633343eeb5.png)
 
+http://wiki.jikexueyuan.com/project/tensorflow-zh/images/softmax-regression-scalargraph.png
+
 或者用线性代数公式表示为：
 
 $$
-y = \text{sof}\text{tmax}(\text{xW} + b)
+y = \text{softmax}(\text{xW} + b)
 $$
 
 其中，*x*为输入数据的特征向量，向量的长度为图片的像素（$$28 \times 28 =
@@ -207,7 +213,7 @@ b$$得到各个数字的权重，最后softmax函数把权重转换为概率分�
 除了模型外，我们还需要定义一个指标来指示如何优化模型中的参数。我们通常定义指标来表示一个模型不尽人意的程度，然后尽量最小化这个指标。这个指标称为成本函数。成本函数与模型是密切相关的。回归问题一般用均方误差作成本函数，而对于分类问题，常用的成本函数是交叉熵（cross-entropy），定义为
 
 $$
-- \sum_{i}^{}{{y'}_{i}\mathrm{\log}(y_{i})}
+- \sum_{i}^{}{{y'}_{i}\log(y_{i})}
 $$
 
 其中*y*是我们预测的概率分布，*y’*是实际的分布。对交叉熵的理解涉及信息论方面的知识，这里我们可以把它看作反映预测不匹配的指标，或者说该指标反映实际情况出乎预料的程度。注意交叉熵是非对称的。在TensorFlow中，交叉熵表示为下面的代码：
@@ -229,6 +235,8 @@ $$
 TensorFlow是一个基于神经网络的深度学习框架。对于Softmax这样的模型，被当作是不含隐藏层的全连接神经网络。通过调整神经网络中的参数对训练数据进行拟合，可以使得模型对未知的样本提供预测的能力，表现为前向传播和反向传播（Backpropagation）的迭代过程。在每次迭代的开始，首先需要选取全部或部分训练数据，通过前向传播算法得到神经网络模型的预测结果。因为训练数据都是有正确答案标注的，所以可以计算出当前神经网络模型的预测答案与正确答案之间的差距。最后，基于预测值和真实值之间的差距，反向传播算法会相应更新神经网络参数的取值，使得在这批数据上神经网络模型的预测结果和真实答案更加接近。如下图所示：
 
 ![http://cdn4.infoqstatic.com/statics_s1_20170606-0324u2/resource/articles/introduction-of-tensorflow-part02/zh/resources/03.png](media/8f03c2efccc6a1246c2801ccf3faef2e.png)
+
+http://cdn4.infoqstatic.com/statics_s1_20170606-0324u2/resource/articles/introduction-of-tensorflow-part02/zh/resources/03.png
 
 TensorFlow支持多种不同的优化器，读者可以根据具体的应用选择不同的优化算法。比较常用的优化方法有三种：tf.train.GradientDescentOptimizer、tf.train.AdamOptimizer和tf.train.MomentumOptimizer。
 
@@ -297,6 +305,8 @@ Descent）以0.01的学习速率最小化交叉熵。梯度下降算法是一个
 除了卷积外，卷积神经网络通常还会用到降采样（downsampling或subsampling）。我们可以理解为把图片适当缩小，由此在一定程度上控制过拟合并减少图像旋转、扭曲对特征提取的影响，因为降采样过程中模糊了方向信息。卷积神经网络正是通过卷积和降采样，成功将数据量庞大的图像识别问题不断降维，最终使其能够被训练。降采样在卷积神经网络中通常被称为池化（Pooling），包括最大池化、平均池化等。其中最常见的是最大池化，它将输入数据分成不重叠的矩形框区域，对于每个矩形框的数值取最大值作为输出。如下图所示。
 
 ![png](media/cba2fc0e01db9abbcc01fed044eaf8c4.png)
+
+png
 
 1.  **构建LeNet-5网络**
 
